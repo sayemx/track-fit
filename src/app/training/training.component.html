@@ -1,0 +1,15 @@
+<div fxLayout="column" fxLayoutAlign="start center" style="padding: 16px;">
+  <div style="width: 100%; max-width: 800px;">
+    <mat-tab-group *ngIf="!ongoingTraining">
+      <mat-tab label="New Exercises"> 
+        <app-new-training (trainingStart)="ongoingTraining=true"></app-new-training>
+      </mat-tab>
+      <mat-tab label="Past Exercises"> 
+        <app-past-training></app-past-training>
+      </mat-tab>
+    </mat-tab-group>
+
+    <app-current-training *ngIf="ongoingTraining"></app-current-training>  
+
+  </div>
+</div>
