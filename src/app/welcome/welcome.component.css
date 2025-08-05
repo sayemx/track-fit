@@ -1,3 +1,13 @@
 .welcome{
+    padding: 50px;
     text-align: center;
+}
+
+mat-card {
+    height: 40vh;
+    width: 50vh;
+}
+
+mat-card-header {
+    margin-bottom: 30px;
 }

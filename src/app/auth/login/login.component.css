@@ -1,3 +1,27 @@
 mat-form-field {
     width: 300px;
 }
+
+.login-form{
+    padding: 50px;
+}
+
+.login-container {
+  background: linear-gradient(to right, #ece9e6, #ffffff); /* or any nice gradient */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  width: 400px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+
+.card-title{
+    text-align: center;
+}

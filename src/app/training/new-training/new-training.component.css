@@ -1,4 +1,15 @@
 .new-training {
     padding: 50px;
     font-family: 'Robboto';
+    height: 50vh;
+}
+
+mat-card-title {
+    padding: 50px;
+    /* margin-bottom: 100px; */
+}
+
+mat-form-field {
+    width: 70%;
+    padding-bottom: 30px;
 }

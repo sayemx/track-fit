@@ -1,48 +1,48 @@
+<div class="signup-container">
 
-<section class="signup-form">
-    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <mat-card class="signup-card" appearance="outlined">
 
-        <mat-form-field>
-            <mat-label> Your Email </mat-label>
-            <input 
-                type="email" 
-                matInput 
-                ngModel 
-                name="email" 
-                email
-                required
-                #emailInput="ngModel">
-            <mat-error *ngIf="emailInput.hasError('required')"> Email must not be empty. </mat-error>
-            <mat-error *ngIf="!emailInput.hasError('required')"> Email is invalid. </mat-error>
-        </mat-form-field>
+        <div class="card-title">
+            <mat-card-title>Sign Up</mat-card-title>
+        </div>
 
-        <mat-form-field hintLabel="Should be at least 6 characters long">
-            <mat-label> Your Password </mat-label>
-            <input 
-                type="password" 
-                matInput 
-                ngModel 
-                name="password"
-                password
-                minlength="6"
-                required
-                #pwInput="ngModel">
-            <mat-hint align="end"> {{ pwInput.value?.length }} / 6 </mat-hint>
-            <mat-error> Must be at lest 6 characters long </mat-error>
-        </mat-form-field>
+        <section class="signup-form">
+            <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="15px" #f="ngForm"
+                (ngSubmit)="onSubmit(f)">
 
-        <mat-form-field>
-            <mat-label> Your Birthate </mat-label>
-            <input matInput [matDatepicker]="picker" [max]="maxDate" ngModel name="birthdate" required>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+                <mat-form-field>
+                    <mat-label> Your Email </mat-label>
+                    <input type="email" matInput ngModel name="email" email required #emailInput="ngModel">
+                    <mat-error *ngIf="emailInput.hasError('required')"> Email must not be empty. </mat-error>
+                    <mat-error *ngIf="!emailInput.hasError('required')"> Email is invalid. </mat-error>
+                </mat-form-field>
 
-        <mat-checkbox ngModel name="agree" required color="primary"> Agree to Terms and Conditions. </mat-checkbox>
+                <mat-form-field hintLabel="Should be at least 6 characters long">
+                    <mat-label> Your Password </mat-label>
+                    <input type="password" matInput ngModel name="password" password minlength="6" required
+                        #pwInput="ngModel">
+                    <mat-hint align="end"> {{ pwInput.value?.length }} / 6 </mat-hint>
+                    <mat-error> Must be at lest 6 characters long </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label> Your Birthate </mat-label>
+                    <input matInput [matDatepicker]="picker" [max]="maxDate" ngModel name="birthdate" required>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-checkbox ngModel name="agree" required color="primary"> Agree to Terms and Conditions.
+                </mat-checkbox>
 
 
-        <button *ngIf="!isLoading" type="submit" mat-raised-button color="primary" [disabled]="f.invalid"> Submit </button>
+                <button *ngIf="!isLoading" type="submit" mat-raised-button color="primary" [disabled]="f.invalid">
+                    Submit </button>
 
-        <mat-spinner *ngIf="isLoading"></mat-spinner>
-    </form>
-</section>
+                <mat-spinner *ngIf="isLoading"></mat-spinner>
+            </form>
+        </section>
+
+
+    </mat-card>
+</div>

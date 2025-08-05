@@ -1,30 +1,35 @@
+<div class="login-container">
 
-<section class="login-form">
-    <form fxLayout="column" fxLayoutAlign="center center"
-            [formGroup]="loginForm" fxLayoutGap="15px" (ngSubmit)="onSubmit()">
+    <mat-card class="login-card" appearance="outlined">
 
-        <mat-form-field>
-            <mat-label> Your Email </mat-label>
-            <input 
-                type="email" 
-                matInput  
-                formControlName="email">
-            <mat-error *ngIf="loginForm.controls['email'].hasError"> Email must not be empty. </mat-error>
-            <mat-error *ngIf="!loginForm.controls['password'].hasError"> Email is invalid. </mat-error>
-        </mat-form-field>
+        <div class="card-title">
+            <mat-card-title> Login </mat-card-title>
+        </div>
 
-        <mat-form-field hintLabel="Should be at least 6 characters long">
-            <mat-label> Your Password </mat-label>
-            <input 
-                type="password" 
-                matInput 
-                formControlName="password">
-            <!-- <mat-hint align="end"> Password Must be 6 characters long </mat-hint> -->
-            <mat-error> Must be at lest 6 characters long </mat-error>
-        </mat-form-field>
+        <section class="login-form">
+            <form fxLayout="column" fxLayoutAlign="center center" [formGroup]="loginForm" fxLayoutGap="15px"
+                (ngSubmit)="onSubmit()">
 
-        <button *ngIf="!isLoading" type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid"> Login </button>
+                <mat-form-field>
+                    <mat-label> Your Email </mat-label>
+                    <input type="email" matInput formControlName="email">
+                    <mat-error *ngIf="loginForm.controls['email'].hasError"> Email must not be empty. </mat-error>
+                    <mat-error *ngIf="!loginForm.controls['password'].hasError"> Email is invalid. </mat-error>
+                </mat-form-field>
 
-        <mat-spinner *ngIf="isLoading"></mat-spinner>
-    </form>
-</section>
+                <mat-form-field hintLabel="Should be at least 6 characters long">
+                    <mat-label> Your Password </mat-label>
+                    <input type="password" matInput formControlName="password">
+                    <!-- <mat-hint align="end"> Password Must be 6 characters long </mat-hint> -->
+                    <mat-error> Must be at lest 6 characters long </mat-error>
+                </mat-form-field>
+
+                <button *ngIf="!isLoading" type="submit" mat-raised-button color="primary"
+                    [disabled]="loginForm.invalid"> Login </button>
+
+                <mat-spinner *ngIf="isLoading"></mat-spinner>
+            </form>
+        </section>
+
+    </mat-card>
+</div>

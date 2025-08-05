@@ -27,3 +27,8 @@ mat-icon {
 .logout{
     
 }
+
+.logo {
+    padding: 5px;
+    /* margin: 10px; */
+}
