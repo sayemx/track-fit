@@ -28,8 +28,9 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { UIService } from './ui.service';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
-
-
+import { HttpClientModule } from '@angular/common/http';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { RecommendationComponent } from './recommendation/recommendation.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { LoginComponent } from './auth/login/login.component';
     WelcomeComponent,
     HeaderComponent,
     SidenavListComponent,
-    StopTrainingComponent
+    StopTrainingComponent,
+    RecommendationComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +59,13 @@ import { LoginComponent } from './auth/login/login.component';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
+    HttpClientModule,
+    OAuthModule.forRoot({
+      resourceServer: {
+        allowedUrls: ['http://localhost:9000/api'], // backend path
+        sendAccessToken: true
+      }
+    })
     
 ],
   providers: [AuthService, TrainingService, UIService],

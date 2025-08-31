@@ -11,3 +11,12 @@ mat-card {
 mat-card-header {
     margin-bottom: 30px;
 }
+
+.ai-card {
+    width: 100vh;
+    height: 40vh;
+}
+
+.ai-div {
+    text-align: center;
+}

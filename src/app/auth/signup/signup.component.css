@@ -1,6 +1,6 @@
 
 mat-form-field {
-    width: 300px;
+    width: 400px;
 }
 
 .signup-form{
@@ -9,7 +9,7 @@ mat-form-field {
 }
 
 .signup-container {
-  background: linear-gradient(to right, #ece9e6, #ffffff); /* or any nice gradient */
+  background: linear-gradient(to right, #ece9e6, #ffffff);
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -17,8 +17,8 @@ mat-form-field {
 }
 
 .signup-card {
-  width: 400px;
-  padding: 2rem;
+  width: 600px;
+  padding: 1rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
 }

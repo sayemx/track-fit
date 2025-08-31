@@ -1,0 +1,362 @@
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header fade-in">
+            <h1>Fitness Analysis Dashboard</h1>
+            <p class="subtitle">Last Workout Report {{ recommendation?.activityType }}</p>
+        </div>
+
+        <!-- Summary Card -->
+        <div class="summary-card fade-in">
+            
+            <!-- CARDIO -->
+            <div *ngIf="recommendation?.activityType === 'CARDIO'">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                    <i class="material-icons" style="font-size: 3rem; margin-right: 16px; color: #F44336;">favorite</i>
+                    <div>
+                        <h2>Cardio Session</h2>
+                        <span class="chip" style="background: rgba(255,255,255,0.2); color: white;">
+                            {{ recommendation?.activityType }}
+                        </span>
+                    </div>
+                </div>
+                <p>{{ recommendation?.summary }}</p>
+            </div>
+
+            <!-- SWIMMING -->
+            <div *ngIf="recommendation?.activityType === 'SWIMMING'">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                    <i class="material-icons" style="font-size: 3rem; margin-right: 16px; color: #00BCD4;">pool</i>
+                    <div>
+                        <h2>Swimming Session</h2>
+                        <span class="chip" style="background: rgba(255,255,255,0.2); color: white;">
+                            {{ recommendation?.activityType }}
+                        </span>
+                    </div>
+                </div>
+                <p>{{ recommendation?.summary }}</p>
+            </div>
+
+            <!-- STRETCHING -->
+            <div *ngIf="recommendation?.activityType === 'STRETCHING'">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                    <i class="material-icons" style="font-size: 3rem; margin-right: 16px; color: #9C27B0;">accessibility_new</i>
+                    <div>
+                        <h2>Stretching Session</h2>
+                        <span class="chip" style="background: rgba(255,255,255,0.2); color: white;">
+                            {{ recommendation?.activityType }}
+                        </span>
+                    </div>
+                </div>
+                <p>{{ recommendation?.summary }}</p>
+            </div>
+
+            <!-- WALKING -->
+            <div *ngIf="recommendation?.activityType === 'WALKING'">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                    <i class="material-icons" style="font-size: 3rem; margin-right: 16px; color: #4CAF50;">directions_walk</i>
+                    <div>
+                        <h2>Walking Session</h2>
+                        <span class="chip" style="background: rgba(255,255,255,0.2); color: white;">
+                            {{ recommendation?.activityType }}
+                        </span>
+                    </div>
+                </div>
+                <p>{{ recommendation?.summary }}</p>
+            </div>
+
+            <!-- CYCLING -->
+            <div *ngIf="recommendation?.activityType === 'CYCLING'">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                    <i class="material-icons" style="font-size: 3rem; margin-right: 16px; color: #2196F3;">directions_bike</i>
+                    <div>
+                        <h2>Cycling Session</h2>
+                        <span class="chip" style="background: rgba(255,255,255,0.2); color: white;">
+                            {{ recommendation?.activityType }}
+                        </span>
+                    </div>
+                </div>
+                <p>{{ recommendation?.summary }}</p>
+            </div>
+
+            <!-- YOGA -->
+            <div *ngIf="recommendation?.activityType === 'YOGA'">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                    <i class="material-icons" style="font-size: 3rem; margin-right: 16px; color: #9C27B0;">self_improvement</i>
+                    <div>
+                        <h2>Yoga Session</h2>
+                        <span class="chip" style="background: rgba(255,255,255,0.2); color: white;">
+                            {{ recommendation?.activityType }}
+                        </span>
+                    </div>
+                </div>
+                <p>{{ recommendation?.summary }}</p>
+            </div>
+
+            <!-- WEIGHT_TRAINING -->
+            <div *ngIf="recommendation?.activityType === 'WEIGHT_TRAINING'">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                    <i class="material-icons" style="font-size: 3rem; margin-right: 16px; color: #FF9800;">fitness_center</i>
+                    <div>
+                        <h2>Weight Training Session</h2>
+                        <span class="chip" style="background: rgba(255,255,255,0.2); color: white;">
+                            {{ recommendation?.activityType }}
+                        </span>
+                    </div>
+                </div>
+                <p>{{ recommendation?.summary }}</p>
+            </div>
+
+            <!-- HIIT -->
+            <div *ngIf="recommendation?.activityType === 'HIIT'">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                    <i class="material-icons" style="font-size: 3rem; margin-right: 16px; color: #FF5722;">flash_on</i>
+                    <div>
+                        <h2>HIIT Session</h2>
+                        <span class="chip" style="background: rgba(255,255,255,0.2); color: white;">
+                            {{ recommendation?.activityType }}
+                        </span>
+                    </div>
+                </div>
+                <p>{{ recommendation?.summary }}</p>
+            </div>
+
+            <!-- RUNNING -->
+            <div *ngIf="recommendation?.activityType === 'RUNNING'">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                    <i class="material-icons" style="font-size: 3rem; margin-right: 16px; color: #FF5722;">directions_run</i>
+                    <div>
+                        <h2>Running Session</h2>
+                        <span class="chip" style="background: rgba(255,255,255,0.2); color: white;">
+                            {{ recommendation?.activityType }}
+                        </span>
+                    </div>
+                </div>
+                <p>{{ recommendation?.summary }}</p>
+            </div>
+
+            <!-- OTHER (Fallback) -->
+            <div *ngIf="recommendation?.activityType === 'OTHER' || !recommendation?.activityType">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+                    <i class="material-icons" style="font-size: 3rem; margin-right: 16px; color: #607D8B;">sports</i>
+                    <div>
+                        <h2>Workout Session</h2>
+                        <span class="chip" style="background: rgba(255,255,255,0.2); color: white;">
+                            {{ recommendation?.activityType || 'OTHER' }}
+                        </span>
+                    </div>
+                </div>
+                <p>{{ recommendation?.summary }}</p>
+            </div>
+            
+
+            <div class="summary-stats">
+                <div class="stat-item">
+                    <span class="stat-value">{{ recommendation?.duration }}</span>
+                    <span class="stat-label">Minutes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">{{ recommendation?.caloryBurned }}</span>
+                    <span class="stat-label">Calories</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">{{ recommendation?.calorieEfficiency }}</span>
+                    <span class="stat-label">Cal/Min</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="content-grid">
+            <!-- Analysis Card -->
+            <div class="card fade-in">
+                <div class="card-header">
+                    <div class="card-icon analysis-icon">
+                        <i class="material-icons">analytics</i>
+                    </div>
+                    <h3 class="card-title">Performance Analysis</h3>
+                </div>
+
+                <div class="progress-section">
+                    <div class="progress-item">
+                        <span class="progress-label">Effort Level</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill effort-medium"></div>
+                        </div>
+                        <span class="chip">{{ recommendation?.effortLevel }}</span>
+                    </div>
+
+                    <div class="progress-item">
+                        <span class="progress-label">Consistency</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill consistency-average"></div>
+                        </div>
+                        <span class="chip">{{ recommendation?.consistency }}</span>
+                    </div>
+
+                    <div class="progress-item">
+                        <span class="progress-label">Calorie Efficiency</span>
+                        <div class="progress-bar">
+                            <div class="progress-fill efficiency-excellent"></div>
+                        </div>
+                        <span class="chip">{{ recommendation?.calorieEfficiency }} cal/min</span>
+                    </div>
+                </div>
+
+                <h4 style="margin: 20px 0 12px 0; color: #555;">Key Observations</h4>
+                <ul class="observations-list">
+                    <li *ngFor="let obs of recommendation?.keyObservations">
+                        {{ obs }}
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Recommendations Card -->
+            <div class="card fade-in">
+                <div class="card-header">
+                    <div class="card-icon recommendations-icon">
+                        <i class="material-icons">recommend</i>
+                    </div>
+                    <h3 class="card-title">Recommendations</h3>
+                </div>
+
+                <div class="recommendation-section">
+                    <div class="recommendation-category">
+                        <div class="category-title">
+                            <i class="material-icons category-icon">fitness_center</i>
+                            Fitness Advice
+                        </div>
+                        <ul class="recommendation-list">
+                            <li *ngFor="let adv of recommendation?.fitnessAdvice">
+                                {{ adv }}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="recommendation-category">
+                        <div class="category-title">
+                            <i class="material-icons category-icon">restaurant</i>
+                            Nutrition Advice
+                        </div>
+                        <ul class="recommendation-list">
+                            <li *ngFor="let ntr of recommendation?.nutritionAdvice">
+                                {{ ntr }}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="recommendation-category">
+                        <div class="category-title">
+                            <i class="material-icons category-icon">spa</i>
+                            Recovery Tips
+                        </div>
+                        <ul class="recommendation-list">
+                            <li *ngFor="let rTips of recommendation?.recoveryTips">
+                                {{ rTips }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Improvements Card -->
+            <div class="card fade-in">
+                <div class="card-header">
+                    <div class="card-icon improvements-icon">
+                        <i class="material-icons">trending_up</i>
+                    </div>
+                    <h3 class="card-title">Areas for Improvement</h3>
+                </div>
+
+                <div class="improvement-item" *ngFor="let imp of recommendation?.improvements">
+                    {{ imp }}
+                </div>
+
+                <h4 style="margin: 24px 0 12px 0; color: #555;">General Suggestions</h4>
+
+                <div class="suggestion-item" *ngFor="let sug of recommendation?.suggestions">
+                    {{ sug }}
+                </div>
+            </div>
+
+            <!-- Predictions Card -->
+            <div class="card fade-in">
+                <div class="card-header">
+                    <div class="card-icon predictions-icon">
+                        <i class="material-icons">insights</i>
+                    </div>
+                    <h3 class="card-title">Future Insights</h3>
+                </div>
+
+                <div class="prediction-card">
+                    <div class="prediction-item">
+                        <div class="prediction-icon">
+                            <i class="material-icons">timeline</i>
+                        </div>
+                        <div>
+                            <strong>Trend Prediction:</strong><br>
+                            {{ recommendation?.trend }}
+                        </div>
+                    </div>
+
+                    <div class="prediction-item">
+                        <div class="prediction-icon">
+                            <i class="material-icons">next_plan</i>
+                        </div>
+                        <div>
+                            <strong>Next Best Activity:</strong><br>
+                            {{ recommendation?.nextBestActivity }}
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    style="margin-top: 20px; padding: 16px; background: #FFF3E0; border-radius: 8px; border-left: 4px solid #FF9800;">
+                    <i class="material-icons"
+                        style="color: #FF9800; margin-right: 8px; vertical-align: middle;">lightbulb</i>
+                    <span style="color: #E65100; font-weight: 500;">Pro Tip:</span>
+                    <span style="color: #BF360C;">
+                        {{ recommendation?.proTip }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add click animations for buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', function () {
+                this.style.transform = 'scale(0.95)';
+            });
+
+            button.addEventListener('mouseup', function () {
+                this.style.transform = 'scale(1)';
+            });
+
+            button.addEventListener('mouseleave', function () {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Animate progress bars on load
+        window.addEventListener('load', function () {
+            setTimeout(() => {
+                document.querySelectorAll('.progress-fill').forEach(bar => {
+                    bar.style.width = bar.style.width || '0%';
+                });
+            }, 500);
+        });
+
+        // Add subtle hover effects for cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-4px)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>

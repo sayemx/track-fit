@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { UIService } from 'src/app/ui.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -32,10 +33,14 @@ export class SignupComponent implements OnInit {
   onSubmit(form: NgForm){
     console.log(form);
 
-    this.authSerive.registerUser({
+    this.authSerive.registerUserKeyCloak({
       email: form.value.email,
-      password: form.value.password
+      password: form.value.password,
+      firstName: form.value.firstName,
+      lastName: form.value.lastname,
+      // birthDate: form.value.birthDate
     });
+    
   }
 
 }

@@ -26,6 +26,17 @@
                 </mat-form-field>
 
                 <mat-form-field>
+                    <mat-label> First Name </mat-label>
+                    <input type="firstName" matInput ngModel name="firstName" required>
+                    <mat-error> Must not be empty </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label> Last Name </mat-label>
+                    <input type="lastName" matInput ngModel name="lastName" required>
+                    <mat-error> Must not be empty </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
                     <mat-label> Your Birthate </mat-label>
                     <input matInput [matDatepicker]="picker" [max]="maxDate" ngModel name="birthdate" required>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>

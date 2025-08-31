@@ -1,10 +1,12 @@
-import { Observable, Subject, Subscription } from "rxjs";
+import { Observable, ReplaySubject, Subject, Subscription } from "rxjs";
 import { Excercise } from "./excercise.model";
 
 import { Firestore, collectionData, collection, addDoc } from '@angular/fire/firestore';
 import { CollectionReference, DocumentData } from 'firebase/firestore';
 import { Injectable } from "@angular/core";
 import { UIService } from "../ui.service";
+import { environment } from "src/environments/environment";
+import { HttpClient } from "@angular/common/http";
 
 // import { Firestore, collection, addDoc, CollectionReference, DocumentData } from '@angular/fire/firestore';
 
@@ -15,6 +17,7 @@ export class TrainingService {
     excerciseChanged = new Subject<any>();
     availableExEvent = new Subject<any>();
     finishedExEvent = new Subject<Excercise[]>();
+    newRcom = new ReplaySubject<string>(1);
 
     fbSubscriptions: Subscription[] = [];
 
@@ -28,7 +31,10 @@ export class TrainingService {
     private runningExcercise?: Excercise;
     // finishedExcecises: Excercise[] = [];
 
+    private baseUrl = environment.trackFIT_URL;
+
     constructor(private firestore: Firestore,
+                private httpClient: HttpClient,
                 private uiService: UIService){}
 
     getAvaialbleExcercises(){
@@ -37,7 +43,7 @@ export class TrainingService {
 
         this.fbSubscriptions.push(this.fetchAvailableExcercisesFromFirebase().subscribe((data) => {
             this.availableExcercises = data;
-            console.log('data from firebase database',data);
+            console.log('data from mongodb database',data);
             this.availableExEvent.next(this.availableExcercises);
             this.uiService.loadingStateEvent.next(false);
         },
@@ -51,8 +57,7 @@ export class TrainingService {
     }
 
     fetchAvailableExcercisesFromFirebase(): Observable<any[]> {
-        const usersRef = collection(this.firestore, 'availableExcercises') as CollectionReference<DocumentData>;
-        return collectionData(usersRef, { idField: 'id' }) as Observable<any[]>;
+        return this.httpClient.get<Excercise[]>(this.baseUrl + '/excercises');
     }
 
     startExcercise(selectedId: string){
@@ -67,12 +72,6 @@ export class TrainingService {
 
     completeExcercise(){
         if(this.runningExcercise){
-            // this.excecises.push(
-            //     { ...this.runningExcercise, 
-            //         date: new Date(), 
-            //         state: 'completed'
-            //     });
-
             this.addDataToDatabase(
                 { ...this.runningExcercise, 
                     date: new Date(), 
@@ -85,14 +84,6 @@ export class TrainingService {
 
     cancelExcercise(progress: number){
         if(this.runningExcercise){
-            // this.excecises.push(
-            //     { ...this.runningExcercise, 
-            //         duration: this.runningExcercise.duration * (progress / 100),
-            //         calories: this.runningExcercise.calories * (progress / 100),
-            //         date: new Date(), 
-            //         state: 'cancelled'
-            //     });
-
             this.addDataToDatabase(
                 { ...this.runningExcercise, 
                     duration: this.runningExcercise.duration * (progress / 100),
@@ -109,34 +100,33 @@ export class TrainingService {
     fetchAllPastExcercises(){
         // return this.excecises;
 
-        const usersRef = collection(this.firestore, 'finishedExcercises') as CollectionReference<DocumentData>;
-        
-        
-        this.fbSubscriptions.push(collectionData(usersRef, { idField: 'id' }).subscribe(
-            (excercises: any[]) => {
-                const transformed = excercises.map((ex: any) => ({
-                    ...ex,
-                    date: ex.date ? ex.date.toDate() : null // convert Firestore Timestamp to JS Date
-                }));
-
-            console.log('finished from db => ', transformed);
-            this.finishedExEvent.next(transformed);
+        this.httpClient.get<Excercise[]>(this.baseUrl + '/excercises/complete/user123').subscribe({
+            next: (res) => {
+                console.log('finished from db => ', res);
+                this.finishedExEvent.next(res);
+            },
+            error: (err) => {
+                console.log(err);
             }
-        ));
+        });
     }
 
     addDataToDatabase(excercise: Excercise){
         
-        const finishedCollection: CollectionReference<DocumentData> = collection(this.firestore, 'finishedExcercises');
-        
-        addDoc(finishedCollection, excercise)
-            .then(() => {
-                console.log('Finished exercise saved successfully!');
-            })
-            .catch((error) => {
-                console.error('Error saving finished exercise:', error);
-            });
-    }
+        this.httpClient.post(this.baseUrl + '/excercises/complete', {...excercise, userId: 'user123'}).subscribe({
+            next: (response) => {
+                console.log('Exercise saved successfully:', response);
+                // this.newRcom.next('new');
+            },
+            error: (err) => {
+                console.error('Error saving exercise:', err);
+            },
+            complete: () => {
+                console.log('Request completed');
+            }
+        });
+
+    } 
 
     cancelSubscriptions(){
         this.fbSubscriptions.forEach(sub => sub.unsubscribe());

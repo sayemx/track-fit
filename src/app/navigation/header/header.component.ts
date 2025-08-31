@@ -24,8 +24,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authSubscription = this.authService.authChange.subscribe(
       data => {
         this.isAuth = data;
+        console.log("login or logout => ", data);
       }
     );
+
+    // this.isAuth = this.authService.isLoggedIn();
   }
 
   onToggleSidenav(){
@@ -33,6 +36,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onLogout(){
-    this.authService.logout();
+    this.authService.logout1();
+  }
+
+  login() {
+    console.log('trying login');
+    this.authService.login1();
   }
 }

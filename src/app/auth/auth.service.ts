@@ -8,18 +8,43 @@ import { inject } from '@angular/core';
 import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from '@angular/fire/auth';
 import { TrainingService } from "../training/training.service";
 import { UIService } from "../ui.service";
+import { OAuthService } from "angular-oauth2-oidc";
+import { environment } from "src/environments/environment";
+import { HttpClient } from "@angular/common/http";
 
 
 @Injectable()
 export class AuthService {
 
     private auth: Auth = inject(Auth);
+    claims: any;
+    private httpClient = inject(HttpClient);
+    private baseUrl = environment.trackFIT_URL;
 
-    constructor(private router: Router, 
+    constructor(private oauth: OAuthService,
+                private router: Router, 
                 private trainingService: TrainingService,
                 private uiService: UIService) {
         onAuthStateChanged(this.auth, (user) => {
             console.log('User status changed:', user);
+        });
+
+        this.oauth.configure(environment.authConfig);
+        this.oauth.loadDiscoveryDocumentAndTryLogin().then(() => {
+            console.log("Discovery doc loaded");
+            if (this.oauth.hasValidAccessToken()) {
+                console.log("Already logged in");
+                this.router.navigate(['/training']);
+            }
+        });
+
+        this.oauth.events.subscribe(e => {
+            if (e.type === 'token_received') {
+                this.authChange.next(true);
+            }
+            if (e.type === 'logout') {
+               this.authChange.next(false);
+            }
         });
     }
 
@@ -95,4 +120,56 @@ export class AuthService {
         // return this.user != null;
         return this.isAuthenitcated;
     }
+
+
+    login1() {
+        this.oauth.initCodeFlow(); // starts PKCE flow
+    }
+
+    logout1() {
+        this.oauth.logOut();
+    }
+
+    isLoggedIn() {
+        return this.oauth.hasValidAccessToken();
+    }
+
+    registerUser1(authData: AuthData){
+
+        this.uiService.loadingStateEvent.next(true);
+
+            this.httpClient.post(this.baseUrl + '/users/register', authData).subscribe({
+                next: (res) => {
+                    this.uiService.loadingStateEvent.next(false);
+                    this.uiService.showSnackbar('User Regustered:', authData.email, 3000);
+                    this.router.navigate(['/']);
+                },
+                error: (err) => {
+                    console.log(err);
+                    this.uiService.loadingStateEvent.next(false);
+                this.uiService.showSnackbar('Registration Failed: ' + err.message, '', 3000);   
+                }
+            });
+        
+    }
+
+    registerUserKeyCloak(authData: AuthData){
+
+        this.uiService.loadingStateEvent.next(true);
+
+            this.httpClient.post(this.baseUrl + '/users/register/keyCloak', authData).subscribe({
+                next: (res) => {
+                    this.uiService.loadingStateEvent.next(false);
+                    this.uiService.showSnackbar('User Regustered:', authData.email, 3000);
+                    this.router.navigate(['/']);
+                },
+                error: (err) => {
+                    console.log(err);
+                    this.uiService.loadingStateEvent.next(false);
+                this.uiService.showSnackbar('Registration Failed: ' + err.message, '', 3000);   
+                }
+            });
+        
+    }
+    
 }

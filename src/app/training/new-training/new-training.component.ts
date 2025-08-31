@@ -40,6 +40,7 @@ export class NewTrainingComponent implements OnInit {
   }
 
   onStartTraining(form: NgForm){
+    console.log("starting excercise")
     this.trainingService.startExcercise(form.value.excercise);
   }
 
